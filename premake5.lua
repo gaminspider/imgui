@@ -2,6 +2,7 @@
 
 project "imgui"
 	kind "StaticLib"
+    staticruntime "On"
 
 	targetdir ("bin/" .. Outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. Outputdir .. "/%{prj.name}")
@@ -39,7 +40,12 @@ project "imgui"
 
 	filter "system:windows"
 		systemversion "latest"
-		staticruntime "On"
 
-		filter { "system:windows", "configurations:Release" }
-		 buildoptions "/MT"
+    filter "configurations:Debug"
+        runtime "Debug"
+        symbols "On"
+
+    filter "configurations:Release"
+        runtime "Release"
+        optimize "On"
+
